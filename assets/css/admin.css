@@ -286,6 +286,9 @@ SIDEBAR
 .display-mobile-comment {
   display: none;
 }
+.posts .post .email .email-full {
+    display: none;
+  }
 @media (max-width: 768px) {
   .posts {
     padding: 15px 10px 40px; /* Ещё больше уменьшены внутренние отступы */
@@ -350,8 +353,6 @@ SIDEBAR
   .display-mobile-comment {
     display: flex;
   }
-}
-@media (max-width: 768px) {
   .sidebar {
     display: none;
   }
