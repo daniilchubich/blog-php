@@ -1,5 +1,7 @@
 <?php
 
+require_once __DIR__ . '/../vendor/autoload.php';
+
 use PHPUnit\Framework\TestCase;
 
 class TestDB extends TestCase
@@ -29,6 +31,7 @@ class TestDB extends TestCase
 
             // Проверка, что объект PDO успешно создан
             $this->assertInstanceOf(PDO::class, $pdo);
+            return $pdo;
         } catch (PDOException $e) {
             // Если ошибка, провалить тест с сообщением об ошибке
             $this->fail('Не удалось подключиться к базе данных: ' . $e->getMessage());
