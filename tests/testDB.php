@@ -10,7 +10,7 @@ class TestDB extends TestCase
     {
         // Подготовка
         $driver = 'mysql';
-        $host = 'localhost';
+        $host = '127.0.0.1';
         $db_name = 'myblog';
         $db_user = 'rot';
         $db_pass = '';
@@ -31,10 +31,10 @@ class TestDB extends TestCase
 
             // Проверка, что объект PDO успешно создан
             $this->assertInstanceOf(PDO::class, $pdo);
-            return $pdo;
-        } catch (PDOException $e) {
+            //return $pdo;
+        } catch (PDOException $i) {
             // Если ошибка, провалить тест с сообщением об ошибке
-            $this->fail('Не удалось подключиться к базе данных: ' . $e->getMessage());
+            $this->fail('Не удалось подключиться к базе данных: ' . $i->getMessage());
         }
     }
 }

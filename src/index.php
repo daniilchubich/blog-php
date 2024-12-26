@@ -1,11 +1,11 @@
 <?php
 include('path.php');
 include 'app/controllers/topics.php';
-include '../tests/testDB.php';
-$testDB = new TestDB('');
-$testDBB = $testDB->testPdoConnection();
-var_dump($testDBB);
-die();
+// include '../tests/testDB.php';
+// $testDB = new TestDB('');
+// $testDBB = $testDB->testPdoConnection();
+// var_dump($testDBB);
+//die();
 $page = isset($_GET['page']) && is_numeric($_GET['page']) ? (int)$_GET['page'] : 1;
 $limit = 2;
 $offset = $limit * ($page - 1);
@@ -29,17 +29,17 @@ $topTopic = selectTopTopicFromPostsOnIndex('posts');
     <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
         <div class="carousel-inner">
             <?php foreach ($topTopic as $key => $post): ?>
-            <div class="carousel-item <?= $key === 0 ? 'active' : '' ?>">
-                <img src="<?= BASE_URL . 'assets/images/posts/' . htmlspecialchars($post['img']) ?>"
-                    alt="<?= htmlspecialchars($post['title']) ?>" class="d-block w-100">
-                <div class="carousel-caption carousel-caption-hack d-none d-md-block">
-                    <h5>
-                        <a href="<?= BASE_URL . 'single.php?post=' . urlencode($post['id']) ?>">
-                            <?= htmlspecialchars(substr($post['title'], 0, 120)) . '...' ?>
-                        </a>
-                    </h5>
+                <div class="carousel-item <?= $key === 0 ? 'active' : '' ?>">
+                    <img src="<?= BASE_URL . 'assets/images/posts/' . htmlspecialchars($post['img']) ?>"
+                        alt="<?= htmlspecialchars($post['title']) ?>" class="d-block w-100">
+                    <div class="carousel-caption carousel-caption-hack d-none d-md-block">
+                        <h5>
+                            <a href="<?= BASE_URL . 'single.php?post=' . urlencode($post['id']) ?>">
+                                <?= htmlspecialchars(substr($post['title'], 0, 120)) . '...' ?>
+                            </a>
+                        </h5>
+                    </div>
                 </div>
-            </div>
             <?php endforeach; ?>
         </div>
 
@@ -68,24 +68,24 @@ $topTopic = selectTopTopicFromPostsOnIndex('posts');
         <div class="main-content col-md-9 col-12">
             <h2>Останні Новини</h2>
             <?php foreach ($posts as $post): ?>
-            <div class="post row">
-                <div class="img col-12 col-md-4">
-                    <img src="<?= BASE_URL . 'assets/images/posts/' . $post['img'] ?>" alt="<?= $post['title'] ?>"
-                        class="img-thumbnail h-100">
-                </div>
-                <div class="post_text col-12 col-md-8">
-                    <h3>
-                        <a
-                            href="<?= BASE_URL . 'single.php?post=' . $post['id']; ?>"><?= substr($post['title'], 0, 80) . '...'  ?></a>
-                    </h3>
-                    <i class="far fa-user"> <?= $post['username']; ?></i>
-                    <i class="far fa-calendar"> <?= $post['created']; ?></i>
-                    <p class="preview-text">
+                <div class="post row">
+                    <div class="img col-12 col-md-4">
+                        <img src="<?= BASE_URL . 'assets/images/posts/' . $post['img'] ?>" alt="<?= $post['title'] ?>"
+                            class="img-thumbnail h-100">
+                    </div>
+                    <div class="post_text col-12 col-md-8">
+                        <h3>
+                            <a
+                                href="<?= BASE_URL . 'single.php?post=' . $post['id']; ?>"><?= substr($post['title'], 0, 80) . '...'  ?></a>
+                        </h3>
+                        <i class="far fa-user"> <?= $post['username']; ?></i>
+                        <i class="far fa-calendar"> <?= $post['created']; ?></i>
+                        <p class="preview-text">
 
-                        <?= mb_substr($post['content'], 0, 55, 'UTF-8') . '...'  ?>
-                    </p>
+                            <?= mb_substr($post['content'], 0, 55, 'UTF-8') . '...'  ?>
+                        </p>
+                    </div>
                 </div>
-            </div>
             <?php endforeach; ?>
             <?php include('app/include/pagination.php'); ?>
         </div>
@@ -101,19 +101,19 @@ $topTopic = selectTopTopicFromPostsOnIndex('posts');
 
 
             <?php if (isset($topics) && is_array($topics)): ?>
-            <div class="section topics">
-                <h3>Категорії</h3>
-                <ul>
-                    <?php foreach ($topics as $key => $topic): ?>
-                    <li>
-                        <?php if (is_array($topic) && is_int($topic['id']) && is_string($topic['name'])): ?>
-                        <a href="<?= BASE_URL . 'category.php?id=' . $topic['id'] ?>"><?= $topic['name']; ?>
-                        </a>
-                        <?php endif; ?>
-                    </li>
-                    <?php endforeach; ?>
-                </ul>
-            </div>
+                <div class="section topics">
+                    <h3>Категорії</h3>
+                    <ul>
+                        <?php foreach ($topics as $key => $topic): ?>
+                            <li>
+                                <?php if (is_array($topic) && is_int($topic['id']) && is_string($topic['name'])): ?>
+                                    <a href="<?= BASE_URL . 'category.php?id=' . $topic['id'] ?>"><?= $topic['name']; ?>
+                                    </a>
+                                <?php endif; ?>
+                            </li>
+                        <?php endforeach; ?>
+                    </ul>
+                </div>
             <?php endif; ?>
 
         </div>
