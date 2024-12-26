@@ -1,7 +1,7 @@
 <?php
 
 $driver = 'mysql';
-$host = 'localhost';
+$host = '127.0.0.1';
 $db_name = 'myblog';
 $db_user = 'root';
 $db_pass = '';
@@ -18,6 +18,6 @@ try {
         $db_pass,
         $options
     );
-} catch (PDOException $i) {
-    die('Помилка підключення до DB');
+} catch (PDOException $if) {
+    die('Error connect DB');
 }

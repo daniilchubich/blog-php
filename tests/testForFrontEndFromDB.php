@@ -1,14 +1,28 @@
 <?php
 
 require_once __DIR__ . '/../vendor/autoload.php';
-include '../src/app/controllers/topics.php';
 
 use PHPUnit\Framework\TestCase;
 
-class TestDB extends TestCase
+class testForFrontEndFromDB extends TestCase
 {
+    protected $pdo;
+
+    protected function setUp(): void
+    {
+        // Подключаем файлы, которые инициализируют $pdo
+        require_once __DIR__ . '/../src/app/database/connect.php';  // Подключаем connect.php
+
+        // Убедитесь, что $pdo проинициализировано
+        $this->assertNotNull($pdo, 'PDO connection failed.');
+    }
     public function testForFrontEndFromDB()
     {
+        global $pdo;
+        if (!empty($pdo)) {
+            die('Error');
+        }
+        include __DIR__ . '/../src/app/database/db.php';
         $limit = 2;
         $offset = 0;
 

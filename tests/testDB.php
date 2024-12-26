@@ -34,7 +34,7 @@ class TestDB extends TestCase
             //return $pdo;
         } catch (PDOException $i) {
             // Если ошибка, провалить тест с сообщением об ошибке
-            $this->fail('Не удалось подключиться к базе данных: ' . $i->getMessage());
+            $this->fail('Помилка підключення до DB: ' . $i->getMessage());
         }
     }
 }

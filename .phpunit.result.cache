@@ -1,1 +1,1 @@
-{"version":1,"defects":{"TestDB::testPdoConnection":7},"times":{"TestDB::testPdoConnection":0.004}}
+{"version":1,"defects":{"TestDB::testPdoConnection":7,"testForFrontEndFromDB::testForFrontEndFromDB":8},"times":{"TestDB::testPdoConnection":0.004,"testForFrontEndFromDB::testForFrontEndFromDB":0.009}}

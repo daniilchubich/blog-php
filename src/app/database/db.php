@@ -1,8 +1,11 @@
 <?php
 
 session_start();
-require('connect.php');
-
+require_once(__DIR__ . '/connect.php');
+global $pdo;
+if (empty($pdo)) {
+    //die('Error');
+}
 function tt($value)
 {
     echo '<pre>';
