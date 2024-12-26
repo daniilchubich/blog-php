@@ -12,7 +12,7 @@ class TestDB extends TestCase
         $driver = 'mysql';
         $host = '127.0.0.1';
         $db_name = 'myblog';
-        $db_user = 'rot';
+        $db_user = 'root';
         $db_pass = '';
         $charset = 'utf8';
         $options = [

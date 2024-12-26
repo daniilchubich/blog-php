@@ -1,11 +1,7 @@
 <?php
 include('path.php');
 include 'app/controllers/topics.php';
-// include '../tests/testDB.php';
-// $testDB = new TestDB('');
-// $testDBB = $testDB->testPdoConnection();
-// var_dump($testDBB);
-//die();
+
 $page = isset($_GET['page']) && is_numeric($_GET['page']) ? (int)$_GET['page'] : 1;
 $limit = 2;
 $offset = $limit * ($page - 1);
