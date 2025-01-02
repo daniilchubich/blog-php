@@ -2,10 +2,7 @@
 
 session_start();
 require_once(__DIR__ . '/connect.php');
-global $pdo;
-if (empty($pdo)) {
-    //die('Error');
-}
+
 function tt($value)
 {
     echo '<pre>';
@@ -13,7 +10,7 @@ function tt($value)
     echo '</pre>';
     exit();
 }
-
+echo "Test";
 function dbCheckError($query)
 {
     $errInfo = $query->errorInfo();
