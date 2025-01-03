@@ -36,7 +36,7 @@ jobs:
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: "8.4"
+          php-version: "8.3"
 
       # 7. Устанавливаем зависимости Composer
       - name: Install PHP dependencies
@@ -48,7 +48,7 @@ jobs:
 
       # 9. Запуск PHPStan
       - name: Run PHPStan
-        run: composer phpstan
+        run: ./vendor/bin/phpstan analyse
 
       # 10. Стаб-тесты
       - name: Run tests
