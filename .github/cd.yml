@@ -1,0 +1,56 @@
+name: Continuous Deployment (CD)
+
+on:
+  push:
+    branches:
+      - master  
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest  
+
+    steps:
+     
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+    
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.1' 
+          extensions: mbstring, dom, curl, json
+          coverage: none
+
+
+      - name: Install dependencies
+        run: |
+          composer install 
+      
+      - name: Run deployment tasks
+        run: |
+          php artisan migrate --force   
+          php artisan config:cache      
+
+     
+      - name: Deploy to Staging Server
+        env:
+          HOST: ${{ secrets.STAGING_SERVER_HOST }}
+          USER: ${{ secrets.STAGING_SERVER_USER }}
+          PRIVATE_KEY: ${{ secrets.STAGING_SERVER_PRIVATE_KEY }}
+        run: |
+         
+          mkdir -p ~/.ssh
+          echo "$PRIVATE_KEY" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan -H $HOST >> ~/.ssh/known_hosts
+
+          # Крок деплою на сервер
+          ssh $USER@$HOST << 'EOF'
+            cd /path/to/your/project
+            git pull origin master  
+            composer install         
+            php artisan migrate --force  
+            php artisan config:cache    
+            php artisan route:cache     
+          EOF
