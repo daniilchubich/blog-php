@@ -1,5 +1,4 @@
-Promise
-=======
+# Promise
 
 A lightweight implementation of
 [CommonJS Promises/A](http://wiki.commonjs.org/wiki/Promises/A) for PHP.
@@ -7,46 +6,44 @@ A lightweight implementation of
 [![CI status](https://github.com/reactphp/promise/workflows/CI/badge.svg)](https://github.com/reactphp/promise/actions)
 [![installs on Packagist](https://img.shields.io/packagist/dt/react/promise?color=blue&label=installs%20on%20Packagist)](https://packagist.org/packages/react/promise)
 
-Table of Contents
------------------
+## Table of Contents
 
 1. [Introduction](#introduction)
 2. [Concepts](#concepts)
-   * [Deferred](#deferred)
-   * [Promise](#promise-1)
+   - [Deferred](#deferred)
+   - [Promise](#promise-1)
 3. [API](#api)
-   * [Deferred](#deferred-1)
-     * [Deferred::promise()](#deferredpromise)
-     * [Deferred::resolve()](#deferredresolve)
-     * [Deferred::reject()](#deferredreject)
-   * [PromiseInterface](#promiseinterface)
-     * [PromiseInterface::then()](#promiseinterfacethen)
-     * [PromiseInterface::catch()](#promiseinterfacecatch)
-     * [PromiseInterface::finally()](#promiseinterfacefinally)
-     * [PromiseInterface::cancel()](#promiseinterfacecancel)
-     * [~~PromiseInterface::otherwise()~~](#promiseinterfaceotherwise)
-     * [~~PromiseInterface::always()~~](#promiseinterfacealways)
-   * [Promise](#promise-2)
-   * [Functions](#functions)
-     * [resolve()](#resolve)
-     * [reject()](#reject)
-     * [all()](#all)
-     * [race()](#race)
-     * [any()](#any)
-     * [set_rejection_handler()](#set_rejection_handler)
+   - [Deferred](#deferred-1)
+     - [Deferred::promise()](#deferredpromise)
+     - [Deferred::resolve()](#deferredresolve)
+     - [Deferred::reject()](#deferredreject)
+   - [PromiseInterface](#promiseinterface)
+     - [PromiseInterface::then()](#promiseinterfacethen)
+     - [PromiseInterface::catch()](#promiseinterfacecatch)
+     - [PromiseInterface::finally()](#promiseinterfacefinally)
+     - [PromiseInterface::cancel()](#promiseinterfacecancel)
+     - [~~PromiseInterface::otherwise()~~](#promiseinterfaceotherwise)
+     - [~~PromiseInterface::always()~~](#promiseinterfacealways)
+   - [Promise](#promise-2)
+   - [Functions](#functions)
+     - [resolve()](#resolve)
+     - [reject()](#reject)
+     - [all()](#all)
+     - [race()](#race)
+     - [any()](#any)
+     - [set_rejection_handler()](#set_rejection_handler)
 4. [Examples](#examples)
-   * [How to use Deferred](#how-to-use-deferred)
-   * [How promise forwarding works](#how-promise-forwarding-works)
-     * [Resolution forwarding](#resolution-forwarding)
-     * [Rejection forwarding](#rejection-forwarding)
-     * [Mixed resolution and rejection forwarding](#mixed-resolution-and-rejection-forwarding)
+   - [How to use Deferred](#how-to-use-deferred)
+   - [How promise forwarding works](#how-promise-forwarding-works)
+     - [Resolution forwarding](#resolution-forwarding)
+     - [Rejection forwarding](#rejection-forwarding)
+     - [Mixed resolution and rejection forwarding](#mixed-resolution-and-rejection-forwarding)
 5. [Install](#install)
 6. [Tests](#tests)
 7. [Credits](#credits)
 8. [License](#license)
 
-Introduction
-------------
+## Introduction
 
 Promise is a library implementing
 [CommonJS Promises/A](http://wiki.commonjs.org/wiki/Promises/A) for PHP.
@@ -57,8 +54,7 @@ multiple promises and mapping and reducing collections of promises.
 If you've never heard about promises before,
 [read this first](https://gist.github.com/domenic/3889970).
 
-Concepts
---------
+## Concepts
 
 ### Deferred
 
@@ -72,8 +68,7 @@ While a deferred represents the computation itself, a **Promise** represents
 the result of that computation. Thus, each deferred has a promise that acts as
 a placeholder for its actual result.
 
-API
----
+## API
 
 ### Deferred
 
@@ -158,10 +153,10 @@ or rejection value. Returns a new promise for the transformed result.
 The `then()` method registers new fulfilled and rejection handlers with a promise
 (all parameters are optional):
 
-  * `$onFulfilled` will be invoked once the promise is fulfilled and passed
-    the result as the first argument.
-  * `$onRejected` will be invoked once the promise is rejected and passed the
-    reason as the first argument.
+- `$onFulfilled` will be invoked once the promise is fulfilled and passed
+  the result as the first argument.
+- `$onRejected` will be invoked once the promise is rejected and passed the
+  reason as the first argument.
 
 It returns a new promise that will fulfill with the return value of either
 `$onFulfilled` or `$onRejected`, whichever is called, or will reject with
@@ -170,15 +165,15 @@ the thrown exception if either throws.
 A promise makes the following guarantees about handlers registered in
 the same call to `then()`:
 
-  1. Only one of `$onFulfilled` or `$onRejected` will be called,
-     never both.
-  2. `$onFulfilled` and `$onRejected` will never be called more
-     than once.
+1. Only one of `$onFulfilled` or `$onRejected` will be called,
+   never both.
+2. `$onFulfilled` and `$onRejected` will never be called more
+   than once.
 
 #### See also
 
-* [resolve()](#resolve) - Creating a resolved promise
-* [reject()](#reject) - Creating a rejected promise
+- [resolve()](#resolve) - Creating a resolved promise
+- [reject()](#reject) - Creating a rejected promise
 
 #### PromiseInterface::catch()
 
@@ -217,14 +212,14 @@ Allows you to execute "cleanup" type tasks in a promise chain.
 It arranges for `$onFulfilledOrRejected` to be called, with no arguments,
 when the promise is either fulfilled or rejected.
 
-* If `$promise` fulfills, and `$onFulfilledOrRejected` returns successfully,
+- If `$promise` fulfills, and `$onFulfilledOrRejected` returns successfully,
   `$newPromise` will fulfill with the same value as `$promise`.
-* If `$promise` fulfills, and `$onFulfilledOrRejected` throws or returns a
+- If `$promise` fulfills, and `$onFulfilledOrRejected` throws or returns a
   rejected promise, `$newPromise` will reject with the thrown exception or
   rejected promise's reason.
-* If `$promise` rejects, and `$onFulfilledOrRejected` returns successfully,
+- If `$promise` rejects, and `$onFulfilledOrRejected` returns successfully,
   `$newPromise` will reject with the same reason as `$promise`.
-* If `$promise` rejects, and `$onFulfilledOrRejected` throws or returns a
+- If `$promise` rejects, and `$onFulfilledOrRejected` throws or returns a
   rejected promise, `$newPromise` will reject with the thrown exception or
   rejected promise's reason.
 
@@ -255,7 +250,7 @@ return doSomething()
 
 #### PromiseInterface::cancel()
 
-``` php
+```php
 $promise->cancel();
 ```
 
@@ -320,13 +315,13 @@ $promise = new React\Promise\Promise($resolver, $canceller);
 The promise constructor receives a resolver function and an optional canceller
 function which both will be called with two arguments:
 
-  * `$resolve($value)` - Primary function that seals the fate of the
-    returned promise. Accepts either a non-promise value, or another promise.
-    When called with a non-promise value, fulfills promise with that value.
-    When called with another promise, e.g. `$resolve($otherPromise)`, promise's
-    fate will be equivalent to that of `$otherPromise`.
-  * `$reject($reason)` - Function that rejects the promise. It is recommended to
-    just throw an exception instead of using `$reject()`.
+- `$resolve($value)` - Primary function that seals the fate of the
+  returned promise. Accepts either a non-promise value, or another promise.
+  When called with a non-promise value, fulfills promise with that value.
+  When called with another promise, e.g. `$resolve($otherPromise)`, promise's
+  fate will be equivalent to that of `$otherPromise`.
+- `$reject($reason)` - Function that rejects the promise. It is recommended to
+  just throw an exception instead of using `$reject()`.
 
 If the resolver or canceller throw an exception, the promise will be rejected
 with that thrown exception as the rejection reason.
@@ -379,9 +374,9 @@ $promise = React\Promise\reject(\Throwable $reason);
 
 Creates a rejected promise for the supplied `$reason`.
 
-Note that the [`\Throwable`](https://www.php.net/manual/en/class.throwable.php) interface introduced in PHP 7 covers 
-both user land [`\Exception`](https://www.php.net/manual/en/class.exception.php)'s and 
-[`\Error`](https://www.php.net/manual/en/class.error.php) internal PHP errors. By enforcing `\Throwable` as reason to 
+Note that the [`\Throwable`](https://www.php.net/manual/en/class.throwable.php) interface introduced in PHP 7 covers
+both user land [`\Exception`](https://www.php.net/manual/en/class.exception.php)'s and
+[`\Error`](https://www.php.net/manual/en/class.error.php) internal PHP errors. By enforcing `\Throwable` as reason to
 reject a promise, any language error or user land exception can be used to reject a promise.
 
 The resulting `$promise` implements the [`PromiseInterface`](#promiseinterface)
@@ -452,7 +447,7 @@ $promise = React\Promise\race(iterable $promisesOrValues);
 Initiates a competitive race that allows one winner. Returns a promise which is
 resolved in the same way the first settled promise resolves.
 
-The returned promise will become **infinitely pending** if  `$promisesOrValues`
+The returned promise will become **infinitely pending** if `$promisesOrValues`
 contains 0 items.
 
 #### any()
@@ -465,7 +460,7 @@ Returns a promise that will resolve when any one of the items in
 `$promisesOrValues` resolves. The resolution value of the returned promise
 will be the resolution value of the triggering item.
 
-The returned promise will only reject if *all* items in `$promisesOrValues` are
+The returned promise will only reject if _all_ items in `$promisesOrValues` are
 rejected. The rejection value will be a `React\Promise\Exception\CompositeException`
 which holds all rejection reasons. The rejection reasons can be obtained with
 `CompositeException::getThrowables()`.
@@ -513,8 +508,7 @@ used as a last resort and promise rejections are best handled with either the
 [`finally()` method](#promiseinterfacefinally).
 See also the [`reject()` function](#reject) for more details.
 
-Examples
---------
+## Examples
 
 ### How to use Deferred
 
@@ -654,8 +648,7 @@ $deferred->promise()
 $deferred->resolve(1);  // Prints "Mixed 4"
 ```
 
-Install
--------
+## Install
 
 The recommended way to install this library is [through Composer](https://getcomposer.org/).
 [New to Composer?](https://getcomposer.org/doc/00-intro.md)
@@ -671,7 +664,7 @@ See also the [CHANGELOG](CHANGELOG.md) for details about version upgrades.
 
 This project aims to run on any platform and thus does not require any PHP
 extensions and supports running on PHP 7.1 through current PHP 8+.
-It's *highly recommended to use the latest supported PHP version* for this project.
+It's _highly recommended to use the latest supported PHP version_ for this project.
 
 We're committed to providing long-term support (LTS) options and to provide a
 smooth upgrade path. If you're using an older PHP version, you may use the
@@ -706,8 +699,7 @@ On top of this, we use PHPStan on max level to ensure type safety across the pro
 vendor/bin/phpstan
 ```
 
-Credits
--------
+## Credits
 
 Promise is a port of [when.js](https://github.com/cujojs/when)
 by [Brian Cavalier](https://github.com/briancavalier).
@@ -716,7 +708,6 @@ Also, large parts of the documentation have been ported from the when.js
 [Wiki](https://github.com/cujojs/when/wiki) and the
 [API docs](https://github.com/cujojs/when/blob/master/docs/api.md).
 
-License
--------
+## License
 
 Released under the [MIT](LICENSE) license.

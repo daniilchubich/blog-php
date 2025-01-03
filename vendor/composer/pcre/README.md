@@ -1,5 +1,4 @@
-composer/pcre
-=============
+# composer/pcre
 
 PCRE wrapping library that offers type-safe `preg_*` replacements.
 
@@ -21,9 +20,7 @@ If you are looking for a richer API to handle regular expressions have a look at
 
 [![Continuous Integration](https://github.com/composer/pcre/workflows/Continuous%20Integration/badge.svg?branch=main)](https://github.com/composer/pcre/actions)
 
-
-Installation
-------------
+## Installation
 
 Install the latest version with:
 
@@ -31,17 +28,13 @@ Install the latest version with:
 $ composer require composer/pcre
 ```
 
+## Requirements
 
-Requirements
-------------
+- PHP 7.4.0 is required for 3.x versions
+- PHP 7.2.0 is required for 2.x versions
+- PHP 5.3.2 is required for 1.x versions
 
-* PHP 7.4.0 is required for 3.x versions
-* PHP 7.2.0 is required for 2.x versions
-* PHP 5.3.2 is required for 1.x versions
-
-
-Basic usage
------------
+## Basic usage
 
 Instead of:
 
@@ -131,8 +124,7 @@ complex return types warranting a specific result object.
 See the [MatchResult](src/MatchResult.php), [MatchWithOffsetsResult](src/MatchWithOffsetsResult.php), [MatchAllResult](src/MatchAllResult.php),
 [MatchAllWithOffsetsResult](src/MatchAllWithOffsetsResult.php), and [ReplaceResult](src/ReplaceResult.php) class sources for more details.
 
-Restrictions / Limitations
---------------------------
+## Restrictions / Limitations
 
 Due to type safety requirements a few restrictions are in place.
 
@@ -165,25 +157,23 @@ running this with and without PREG_UNMATCHED_AS_NULL in $flags:
 preg_match('/(a)(b)*(c)(d)*/', 'ac', $matches, $flags);
 ```
 
-| no flag | PREG_UNMATCHED_AS_NULL |
-| --- | --- |
-| array (size=4)              | array (size=5) |
-| 0 => string 'ac' (length=2) |   0 => string 'ac' (length=2) |
-| 1 => string 'a' (length=1)  |   1 => string 'a' (length=1) |
-| 2 => string '' (length=0)   |   2 => null |
-| 3 => string 'c' (length=1)  |   3 => string 'c' (length=1) |
-|                             |   4 => null |
-| group 2 (any unmatched group preceding one that matched) is set to `''`. You cannot tell if it matched an empty string or did not match at all | group 2 is `null` when unmatched and a string if it matched, easy to check for |
+| no flag                                                                                                                                                                                                                                                           | PREG_UNMATCHED_AS_NULL                                                                                      |
+| ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------- |
+| array (size=4)                                                                                                                                                                                                                                                    | array (size=5)                                                                                              |
+| 0 => string 'ac' (length=2)                                                                                                                                                                                                                                       | 0 => string 'ac' (length=2)                                                                                 |
+| 1 => string 'a' (length=1)                                                                                                                                                                                                                                        | 1 => string 'a' (length=1)                                                                                  |
+| 2 => string '' (length=0)                                                                                                                                                                                                                                         | 2 => null                                                                                                   |
+| 3 => string 'c' (length=1)                                                                                                                                                                                                                                        | 3 => string 'c' (length=1)                                                                                  |
+|                                                                                                                                                                                                                                                                   | 4 => null                                                                                                   |
+| group 2 (any unmatched group preceding one that matched) is set to `''`. You cannot tell if it matched an empty string or did not match at all                                                                                                                    | group 2 is `null` when unmatched and a string if it matched, easy to check for                              |
 | group 4 (any optional group without a matching one following) is missing altogether. So you have to check with `isset()`, but really you want `isset($m[4]) && $m[4] !== ''` for safety unless you are very careful to check that a non-optional group follows it | group 4 is always set, and null in this case as there was no match, easy to check for with `$m[4] !== null` |
 
-PHPStan Extension
------------------
+## PHPStan Extension
 
 To use the PHPStan extension if you do not use `phpstan/extension-installer` you can include `vendor/composer/pcre/extension.neon` in your PHPStan config.
 
 The extension provides much better type information for $matches as well as regex validation where possible.
 
-License
--------
+## License
 
 composer/pcre is licensed under the MIT License, see the LICENSE file for details.

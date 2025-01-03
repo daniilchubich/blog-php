@@ -54,11 +54,10 @@ $emitter->removeListener('user.created', function (User $user) use ($logger) {
 $emitter->emit('user.created', [$user]);
 ```
 
-Tests
------
+## Tests
 
     $ ./vendor/bin/phpunit
 
-License
--------
+## License
+
 MIT, see LICENSE.

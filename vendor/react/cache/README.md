@@ -18,23 +18,23 @@ but uses an interface more suited for async, non-blocking applications.
 
 **Table of Contents**
 
-* [Usage](#usage)
-  * [CacheInterface](#cacheinterface)
-    * [get()](#get)
-    * [set()](#set)
-    * [delete()](#delete)
-    * [getMultiple()](#getmultiple)
-    * [setMultiple()](#setmultiple)
-    * [deleteMultiple()](#deletemultiple)
-    * [clear()](#clear)
-    * [has()](#has)
-  * [ArrayCache](#arraycache)
-* [Common usage](#common-usage)
-  * [Fallback get](#fallback-get)
-  * [Fallback-get-and-set](#fallback-get-and-set)
-* [Install](#install)
-* [Tests](#tests)
-* [License](#license)
+- [Usage](#usage)
+  - [CacheInterface](#cacheinterface)
+    - [get()](#get)
+    - [set()](#set)
+    - [delete()](#delete)
+    - [getMultiple()](#getmultiple)
+    - [setMultiple()](#setmultiple)
+    - [deleteMultiple()](#deletemultiple)
+    - [clear()](#clear)
+    - [has()](#has)
+  - [ArrayCache](#arraycache)
+- [Common usage](#common-usage)
+  - [Fallback get](#fallback-get)
+  - [Fallback-get-and-set](#fallback-get-and-set)
+- [Install](#install)
+- [Tests](#tests)
+- [License](#license)
 
 ## Usage
 
@@ -165,7 +165,7 @@ see also [`getMultiple()`](#getmultiple).
 $cache->setMultiple(array('foo' => 1, 'bar' => 2), 60);
 ```
 
-This example eventually sets the list of values - the key `foo` to `1` value 
+This example eventually sets the list of values - the key `foo` to `1` value
 and the key `bar` to `2`. If some of the keys already exist, they are overridden.
 
 #### deleteMultiple()
@@ -182,7 +182,7 @@ delete it, it may take a while.
 $cache->deleteMultiple(array('foo', 'bar, 'baz'));
 ```
 
-This example eventually deletes keys `foo`, `bar` and `baz` from the cache. 
+This example eventually deletes keys `foo`, `bar` and `baz` from the cache.
 As with `setMultiple()`, this may not happen instantly and a promise is returned to
 provide guarantees whether or not the item has been removed from cache.
 
@@ -199,8 +199,8 @@ delete it, it may take a while.
 $cache->clear();
 ```
 
-This example eventually deletes all keys from the cache. As with `deleteMultiple()`, 
-this may not happen instantly and a promise is returned to provide guarantees 
+This example eventually deletes all keys from the cache. As with `deleteMultiple()`,
+this may not happen instantly and a promise is returned to provide guarantees
 whether or not all the items have been removed from cache.
 
 #### has()
@@ -208,8 +208,8 @@ whether or not all the items have been removed from cache.
 The `has(string $key): PromiseInterface<bool>` method can be used to
 determine whether an item is present in the cache.
 
-This method will resolve with `true` on success or `false` when no item can be found 
-or when an error occurs. Similarly, an expired cache item (once the time-to-live 
+This method will resolve with `true` on success or `false` when no item can be found
+or when an error occurs. Similarly, an expired cache item (once the time-to-live
 is expired) is considered a cache miss.
 
 ```php
@@ -218,7 +218,7 @@ $cache
     ->then('var_dump');
 ```
 
-This example checks if the value of the key `foo` is set in the cache and passes 
+This example checks if the value of the key `foo` is set in the cache and passes
 the result to the `var_dump` function. You can use any of the composition provided by
 [promises](https://github.com/reactphp/promise).
 
@@ -278,15 +278,15 @@ $cache
         if ($result === null) {
             return getFooFromDb();
         }
-        
+
         return $result;
     })
     ->then('var_dump');
 ```
 
-First an attempt is made to retrieve the value of `foo`. A callback function is 
-registered that will call `getFooFromDb` when the resulting value is null. 
-`getFooFromDb` is a function (can be any PHP callable) that will be called if the 
+First an attempt is made to retrieve the value of `foo`. A callback function is
+registered that will call `getFooFromDb` when the resulting value is null.
+`getFooFromDb` is a function (can be any PHP callable) that will be called if the
 key does not exist in the cache.
 
 `getFooFromDb` can handle the missing key by returning a promise for the
@@ -305,7 +305,7 @@ $cache
         if ($result === null) {
             return $this->getAndCacheFooFromDb();
         }
-        
+
         return $result;
     })
     ->then('var_dump');
@@ -345,7 +345,7 @@ See also the [CHANGELOG](CHANGELOG.md) for details about version upgrades.
 This project aims to run on any platform and thus does not require any PHP
 extensions and supports running on legacy PHP 5.3 through current PHP 8+ and
 HHVM.
-It's *highly recommended to use PHP 7+* for this project.
+It's _highly recommended to use PHP 7+_ for this project.
 
 ## Tests
 

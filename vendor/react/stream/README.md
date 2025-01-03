@@ -15,38 +15,38 @@ but have an interface more suited for async, non-blocking I/O.
 
 **Table of contents**
 
-* [Stream usage](#stream-usage)
-  * [ReadableStreamInterface](#readablestreaminterface)
-    * [data event](#data-event)
-    * [end event](#end-event)
-    * [error event](#error-event)
-    * [close event](#close-event)
-    * [isReadable()](#isreadable)
-    * [pause()](#pause)
-    * [resume()](#resume)
-    * [pipe()](#pipe)
-    * [close()](#close)
-  * [WritableStreamInterface](#writablestreaminterface)
-    * [drain event](#drain-event)
-    * [pipe event](#pipe-event)
-    * [error event](#error-event-1)
-    * [close event](#close-event-1)
-    * [isWritable()](#iswritable)
-    * [write()](#write)
-    * [end()](#end)
-    * [close()](#close-1)
-  * [DuplexStreamInterface](#duplexstreaminterface)
-* [Creating streams](#creating-streams)
-  * [ReadableResourceStream](#readableresourcestream)
-  * [WritableResourceStream](#writableresourcestream)
-  * [DuplexResourceStream](#duplexresourcestream)
-  * [ThroughStream](#throughstream)
-  * [CompositeStream](#compositestream)
-* [Usage](#usage)
-* [Install](#install)
-* [Tests](#tests)
-* [License](#license)
-* [More](#more)
+- [Stream usage](#stream-usage)
+  - [ReadableStreamInterface](#readablestreaminterface)
+    - [data event](#data-event)
+    - [end event](#end-event)
+    - [error event](#error-event)
+    - [close event](#close-event)
+    - [isReadable()](#isreadable)
+    - [pause()](#pause)
+    - [resume()](#resume)
+    - [pipe()](#pipe)
+    - [close()](#close)
+  - [WritableStreamInterface](#writablestreaminterface)
+    - [drain event](#drain-event)
+    - [pipe event](#pipe-event)
+    - [error event](#error-event-1)
+    - [close event](#close-event-1)
+    - [isWritable()](#iswritable)
+    - [write()](#write)
+    - [end()](#end)
+    - [close()](#close-1)
+  - [DuplexStreamInterface](#duplexstreaminterface)
+- [Creating streams](#creating-streams)
+  - [ReadableResourceStream](#readableresourcestream)
+  - [WritableResourceStream](#writableresourcestream)
+  - [DuplexResourceStream](#duplexresourcestream)
+  - [ThroughStream](#throughstream)
+  - [CompositeStream](#compositestream)
+- [Usage](#usage)
+- [Install](#install)
+- [Tests](#tests)
+- [License](#license)
+- [More](#more)
 
 ## Stream usage
 
@@ -62,15 +62,15 @@ it to any destination (sink).
 
 Similarly, streams can either be
 
-* readable (such as `STDIN` terminal input) or
-* writable (such as `STDOUT` terminal output) or
-* duplex (both readable *and* writable, such as a TCP/IP connection)
+- readable (such as `STDIN` terminal input) or
+- writable (such as `STDOUT` terminal output) or
+- duplex (both readable _and_ writable, such as a TCP/IP connection)
 
 Accordingly, this package defines the following three interfaces
 
-* [`ReadableStreamInterface`](#readablestreaminterface)
-* [`WritableStreamInterface`](#writablestreaminterface)
-* [`DuplexStreamInterface`](#duplexstreaminterface)
+- [`ReadableStreamInterface`](#readablestreaminterface)
+- [`WritableStreamInterface`](#writablestreaminterface)
+- [`DuplexStreamInterface`](#duplexstreaminterface)
 
 ### ReadableStreamInterface
 
@@ -91,10 +91,10 @@ Every implementation of this interface MUST follow these event semantics in
 order to be considered a well-behaving stream.
 
 > Note that higher-level implementations of this interface may choose to
-  define additional events with dedicated semantics not defined as part of
-  this low-level stream specification. Conformance with these event semantics
-  is out of scope for this interface, so you may also have to refer to the
-  documentation of such a higher-level implementation.
+> define additional events with dedicated semantics not defined as part of
+> this low-level stream specification. Conformance with these event semantics
+> is out of scope for this interface, so you may also have to refer to the
+> documentation of such a higher-level implementation.
 
 #### data event
 
@@ -127,7 +127,7 @@ In other words, many lower-level protocols (such as TCP/IP) transfer the
 data in chunks that may be anywhere between single-byte values to several
 dozens of kilobytes. You may want to apply a higher-level protocol to
 these low-level data chunks in order to achieve proper message framing.
-  
+
 #### end event
 
 The `end` event will be emitted once the source stream has successfully
@@ -148,7 +148,7 @@ end, such as after a previous `error` event.
 After the stream is ended, it MUST switch to non-readable mode,
 see also `isReadable()`.
 
-This event will only be emitted if the *end* was reached successfully,
+This event will only be emitted if the _end_ was reached successfully,
 not if the stream was interrupted by an unrecoverable error or explicitly
 closed. Not all streams know this concept of a "successful end".
 Many use-cases involve detecting when the stream closes (terminates)
@@ -161,8 +161,8 @@ will emit this event if either the remote side closes the connection or
 a file handle was successfully read until reaching its end (EOF).
 
 Note that this event should not be confused with the `end()` method.
-This event defines a successful end *reading* from a source stream, while
-the `end()` method defines *writing* a successful end to a destination
+This event defines a successful end _reading_ from a source stream, while
+the `end()` method defines _writing_ a successful end to a destination
 stream.
 
 #### error event
@@ -220,11 +220,11 @@ see also `isReadable()`.
 Unlike the `end` event, this event SHOULD be emitted whenever the stream
 closes, irrespective of whether this happens implicitly due to an
 unrecoverable error or explicitly when either side closes the stream.
-If you only want to detect a *successful* end, you should use the `end`
+If you only want to detect a _successful_ end, you should use the `end`
 event instead.
 
 Many common streams (such as a TCP/IP connection or a file-based stream)
-will likely choose to emit this event after reading a *successful* `end`
+will likely choose to emit this event after reading a _successful_ `end`
 event or after a fatal transmission `error` event.
 
 If this stream is a `DuplexStreamInterface`, you should also notice
@@ -311,7 +311,7 @@ Loop::addTimer(1.0, function () use ($stream) {
 
 Note that both methods can be called any number of times, in particular
 calling `resume()` without a prior `pause()` SHOULD NOT have any effect.
- 
+
 See also `pause()`.
 
 #### pipe()
@@ -437,10 +437,10 @@ Every implementation of this interface MUST follow these event semantics in
 order to be considered a well-behaving stream.
 
 > Note that higher-level implementations of this interface may choose to
-  define additional events with dedicated semantics not defined as part of
-  this low-level stream specification. Conformance with these event semantics
-  is out of scope for this interface, so you may also have to refer to the
-  documentation of such a higher-level implementation.
+> define additional events with dedicated semantics not defined as part of
+> this low-level stream specification. Conformance with these event semantics
+> is out of scope for this interface, so you may also have to refer to the
+> documentation of such a higher-level implementation.
 
 #### drain event
 
@@ -546,7 +546,7 @@ explicitly when either side closes the stream.
 
 Many common streams (such as a TCP/IP connection or a file-based stream)
 will likely choose to emit this event after flushing the buffer from
-the `end()` method, after receiving a *successful* `end` event or after
+the `end()` method, after receiving a _successful_ `end` event or after
 a fatal transmission `error` event.
 
 If this stream is a `DuplexStreamInterface`, you should also notice
@@ -773,10 +773,10 @@ Every implementation of this interface MUST follow these event semantics in
 order to be considered a well-behaving stream.
 
 > Note that higher-level implementations of this interface may choose to
-  define additional events with dedicated semantics not defined as part of
-  this low-level stream specification. Conformance with these event semantics
-  is out of scope for this interface, so you may also have to refer to the
-  documentation of such a higher-level implementation.
+> define additional events with dedicated semantics not defined as part of
+> this low-level stream specification. Conformance with these event semantics
+> is out of scope for this interface, so you may also have to refer to the
+> documentation of such a higher-level implementation.
 
 See also [`ReadableStreamInterface`](#readablestreaminterface) and
 [`WritableStreamInterface`](#writablestreaminterface) for more details.
@@ -790,28 +790,28 @@ This implies that stream instances are most often created within some
 higher-level components and many consumers never actually have to deal with
 creating a stream instance.
 
-* Use [react/socket](https://github.com/reactphp/socket)
+- Use [react/socket](https://github.com/reactphp/socket)
   if you want to accept incoming or establish outgoing plaintext TCP/IP or
   secure TLS socket connection streams.
-* Use [react/http](https://github.com/reactphp/http)
+- Use [react/http](https://github.com/reactphp/http)
   if you want to receive an incoming HTTP request body streams.
-* Use [react/child-process](https://github.com/reactphp/child-process)
+- Use [react/child-process](https://github.com/reactphp/child-process)
   if you want to communicate with child processes via process pipes such as
   STDIN, STDOUT, STDERR etc.
-* Use experimental [react/filesystem](https://github.com/reactphp/filesystem)
+- Use experimental [react/filesystem](https://github.com/reactphp/filesystem)
   if you want to read from / write to the filesystem.
-* See also the last chapter for [more real-world applications](#more).
+- See also the last chapter for [more real-world applications](#more).
 
 However, if you are writing a lower-level component or want to create a stream
 instance from a stream resource, then the following chapter is for you.
 
 > Note that the following examples use `fopen()` and `stream_socket_client()`
-  for illustration purposes only.
-  These functions SHOULD NOT be used in a truly async program because each call
-  may take several seconds to complete and would block the EventLoop otherwise.
-  Additionally, the `fopen()` call will return a file handle on some platforms
-  which may or may not be supported by all EventLoop implementations.
-  As an alternative, you may want to use higher-level libraries listed above.
+> for illustration purposes only.
+> These functions SHOULD NOT be used in a truly async program because each call
+> may take several seconds to complete and would block the EventLoop otherwise.
+> Additionally, the `fopen()` call will return a file handle on some platforms
+> which may or may not be supported by all EventLoop implementations.
+> As an alternative, you may want to use higher-level libraries listed above.
 
 ### ReadableResourceStream
 
@@ -885,13 +885,13 @@ $stream = new ReadableResourceStream(STDIN, null, 8192);
 ```
 
 > PHP bug warning: If the PHP process has explicitly been started without a
-  `STDIN` stream, then trying to read from `STDIN` may return data from
-  another stream resource. This does not happen if you start this with an empty
-  stream like `php test.php < /dev/null` instead of `php test.php <&-`.
-  See [#81](https://github.com/reactphp/stream/issues/81) for more details.
+> `STDIN` stream, then trying to read from `STDIN` may return data from
+> another stream resource. This does not happen if you start this with an empty
+> stream like `php test.php < /dev/null` instead of `php test.php <&-`.
+> See [#81](https://github.com/reactphp/stream/issues/81) for more details.
 
 > Changelog: As of v1.2.0 the `$loop` parameter can be omitted (or skipped with a
-  `null` value) to use the [default loop](https://github.com/reactphp/event-loop#loop).
+> `null` value) to use the [default loop](https://github.com/reactphp/event-loop#loop).
 
 ### WritableResourceStream
 
@@ -976,7 +976,7 @@ $stream = new WritableResourceStream(STDOUT, null, null, 8192);
 See also [`write()`](#write) for more details.
 
 > Changelog: As of v1.2.0 the `$loop` parameter can be omitted (or skipped with a
-  `null` value) to use the [default loop](https://github.com/reactphp/event-loop#loop).
+> `null` value) to use the [default loop](https://github.com/reactphp/event-loop#loop).
 
 ### DuplexResourceStream
 
@@ -996,7 +996,7 @@ $stream->end();
 See also [`DuplexStreamInterface`](#duplexstreaminterface) for more details.
 
 The first parameter given to the constructor MUST be a valid stream resource
-that is opened for reading *and* writing.
+that is opened for reading _and_ writing.
 Otherwise, it will throw an `InvalidArgumentException`:
 
 ```php
@@ -1072,7 +1072,7 @@ $stream = new DuplexResourceStream($conn, null, null, $buffer);
 See also [`WritableResourceStream`](#writableresourcestream) for more details.
 
 > Changelog: As of v1.2.0 the `$loop` parameter can be omitted (or skipped with a
-  `null` value) to use the [default loop](https://github.com/reactphp/event-loop#loop).
+> `null` value) to use the [default loop](https://github.com/reactphp/event-loop#loop).
 
 ### ThroughStream
 
@@ -1099,7 +1099,7 @@ $source->pipe($through)->pipe($dest);
 ```
 
 Optionally, its constructor accepts any callable function which will then be
-used to *filter* any data written to it. This function receives a single data
+used to _filter_ any data written to it. This function receives a single data
 argument as passed to the writable side and must return the data as it will be
 passed to its readable end:
 
@@ -1189,10 +1189,10 @@ $source->pipe($dest);
 ```
 
 > Note that this example uses `fopen()` for illustration purposes only.
-  This should not be used in a truly async program because the filesystem is
-  inherently blocking and each call could potentially take several seconds.
-  See also [creating streams](#creating-streams) for more sophisticated
-  examples.
+> This should not be used in a truly async program because the filesystem is
+> inherently blocking and each call could potentially take several seconds.
+> See also [creating streams](#creating-streams) for more sophisticated
+> examples.
 
 ## Install
 
@@ -1210,7 +1210,7 @@ See also the [CHANGELOG](CHANGELOG.md) for details about version upgrades.
 
 This project aims to run on any platform and thus does not require any PHP
 extensions and supports running on legacy PHP 5.3 through current PHP 8+ and HHVM.
-It's *highly recommended to use PHP 7+* for this project due to its vast
+It's _highly recommended to use PHP 7+_ for this project due to its vast
 performance improvements.
 
 ## Tests
@@ -1242,8 +1242,8 @@ MIT, see [LICENSE file](LICENSE).
 
 ## More
 
-* See [creating streams](#creating-streams) for more information on how streams
+- See [creating streams](#creating-streams) for more information on how streams
   are created in real-world applications.
-* See our [users wiki](https://github.com/reactphp/react/wiki/Users) and the
+- See our [users wiki](https://github.com/reactphp/react/wiki/Users) and the
   [dependents on Packagist](https://packagist.org/packages/react/stream/dependents)
   for a list of packages that use streams in real-world applications.

@@ -16,27 +16,27 @@ remote procedure call (RPC) mechanism. This library provides a simple
 streaming API to process very large NDJSON files with thousands or even millions
 of rows efficiently without having to load the whole file into memory at once.
 
-* **Standard interfaces** -
+- **Standard interfaces** -
   Allows easy integration with existing higher-level components by implementing
   ReactPHP's standard streaming interfaces.
-* **Lightweight, SOLID design** -
-  Provides a thin abstraction that is [*just good enough*](https://en.wikipedia.org/wiki/Principle_of_good_enough)
+- **Lightweight, SOLID design** -
+  Provides a thin abstraction that is [_just good enough_](https://en.wikipedia.org/wiki/Principle_of_good_enough)
   and does not get in your way.
   Builds on top of well-tested components and well-established concepts instead of reinventing the wheel.
-* **Good test coverage** -
-  Comes with an [automated tests suite](#tests) and is regularly tested in the *real world*.
+- **Good test coverage** -
+  Comes with an [automated tests suite](#tests) and is regularly tested in the _real world_.
 
 **Table of contents**
 
-* [Support us](#support-us)
-* [NDJSON format](#ndjson-format)
-* [Usage](#usage)
-    * [Decoder](#decoder)
-    * [Encoder](#encoder)
-* [Install](#install)
-* [Tests](#tests)
-* [License](#license)
-* [More](#more)
+- [Support us](#support-us)
+- [NDJSON format](#ndjson-format)
+- [Usage](#usage)
+  - [Decoder](#decoder)
+  - [Encoder](#encoder)
+- [Install](#install)
+- [Tests](#tests)
+- [License](#license)
+- [More](#more)
 
 ## Support us
 
@@ -79,7 +79,7 @@ also allows it to be used in a streaming context, such as a simple inter-process
 communication (IPC) protocol or for a remote procedure call (RPC) mechanism.
 
 The newline character at the end of each line allows for some really simple
-*framing* (detecting individual records). While each individual line is valid
+_framing_ (detecting individual records). While each individual line is valid
 JSON, the complete file as a whole is technically no longer valid JSON, because
 it contains multiple JSON texts. This implies that for example calling PHP's
 `json_decode()` on this complete input would fail because it would try to parse
@@ -242,6 +242,7 @@ $ndjson = new Clue\React\NDJson\Encoder($stdout);
 $ndjson->write(array('name' => 'test', 'active' => true));
 $ndjson->write(array('name' => 'hello wörld', 'active' => true));
 ```
+
 ```
 {"name":"test","active":true}
 {"name":"hello w\u00f6rld","active":true}
@@ -257,6 +258,7 @@ $ndjson = new Clue\React\NDJson\Encoder($stdout, JSON_UNESCAPED_SLASHES | JSON_U
 
 $ndjson->write('hello wörld');
 ```
+
 ```
 "hello wörld"
 ```
@@ -318,7 +320,7 @@ See also the [CHANGELOG](CHANGELOG.md) for details about version upgrades.
 This project aims to run on any platform and thus does not require any PHP
 extensions and supports running on legacy PHP 5.3 through current PHP 8+ and
 HHVM.
-It's *highly recommended to use the latest supported PHP version* for this project.
+It's _highly recommended to use the latest supported PHP version_ for this project.
 
 ## Tests
 
@@ -340,26 +342,26 @@ vendor/bin/phpunit
 This project is released under the permissive [MIT license](LICENSE).
 
 > Did you know that I offer custom development services and issuing invoices for
-  sponsorships of releases and for contributions? Contact me (@clue) for details.
+> sponsorships of releases and for contributions? Contact me (@clue) for details.
 
 ## More
 
-* If you want to learn more about processing streams of data, refer to the documentation of
+- If you want to learn more about processing streams of data, refer to the documentation of
   the underlying [react/stream](https://github.com/reactphp/stream) component.
 
-* If you want to process compressed NDJSON files (`.ndjson.gz` file extension),
+- If you want to process compressed NDJSON files (`.ndjson.gz` file extension),
   you may want to use [clue/reactphp-zlib](https://github.com/clue/reactphp-zlib)
   on the compressed input stream before passing the decompressed stream to the NDJSON decoder.
 
-* If you want to create compressed NDJSON files (`.ndjson.gz` file extension),
+- If you want to create compressed NDJSON files (`.ndjson.gz` file extension),
   you may want to use [clue/reactphp-zlib](https://github.com/clue/reactphp-zlib)
   on the resulting NDJSON encoder output stream before passing the compressed
   stream to the file output stream.
 
-* If you want to concurrently process the records from your NDJSON stream,
+- If you want to concurrently process the records from your NDJSON stream,
   you may want to use [clue/reactphp-flux](https://github.com/clue/reactphp-flux)
   to concurrently process many (but not too many) records at once.
 
-* If you want to process structured data in the more common text-based format,
+- If you want to process structured data in the more common text-based format,
   you may want to use [clue/reactphp-csv](https://github.com/clue/reactphp-csv)
   to process Comma-Separated-Values (CSV) files (`.csv` file extension).
