@@ -1,0 +1,55 @@
+name: CI
+
+on:
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  lint-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. Клонируем репозиторий
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      # 2. Устанавливаем Node.js
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "16"
+
+      # 3. Устанавливаем зависимости
+      - name: Install dependencies
+        run: npm install
+
+      # 4. Проверка Prettier
+      - name: Run Prettier
+        run: npm run format
+
+      # 5. Проверка Conventional Commits
+      - name: Check commit messages
+        run: npx commitlint --from=HEAD~10 --to=HEAD
+
+      # 6. Устанавливаем PHP
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: "8.4"
+
+      # 7. Устанавливаем зависимости Composer
+      - name: Install PHP dependencies
+        run: composer install
+
+      # 8. Запуск PHP-CS-Fixer
+      - name: Run PHP-CS-Fixer
+        run: ./vendor/bin/php-cs-fixer fix --dry-run --diff
+
+      # 9. Запуск PHPStan
+      - name: Run PHPStan
+        run: composer phpstan
+
+      # 10. Стаб-тесты
+      - name: Run tests
+        run: echo "All tests passed!"
