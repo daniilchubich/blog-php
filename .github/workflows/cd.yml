@@ -17,8 +17,6 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: '8.1'
-          extensions: mbstring, dom, curl, json
-          coverage: none
 
       - name: Install dependencies
         run: |
@@ -33,14 +31,11 @@ jobs:
         env:
           HOST: ${{ secrets.STAGING_SERVER_HOST }}
           USER: ${{ secrets.STAGING_SERVER_USER }}
-          PRIVATE_KEY: ${{ secrets.STAGING_SERVER_PRIVATE_KEY }}
+          PASSWORD: ${{ secrets.STAGING_SERVER_SSH_PASSWORD }}
+          PORT: ${{ secrets.STAGING_SERVER_SSH_PORT }}
         run: |
-          mkdir -p ~/.ssh
-          echo "$PRIVATE_KEY" > ~/.ssh/id_rsa
-          chmod 600 ~/.ssh/id_rsa
-          ssh-keyscan -H $HOST >> ~/.ssh/known_hosts
-
-          ssh $USER@$HOST << 'EOF'
+          sudo apt-get install -y sshpass
+          sshpass -p "$PASSWORD" ssh -o StrictHostKeyChecking=no -p "$PORT" $USER@$HOST << 'EOF'
             cd /path/to/your/project
             git pull origin master
             composer install
