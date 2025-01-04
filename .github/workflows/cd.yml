@@ -16,7 +16,7 @@ jobs:
       - name: Set up PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '8.3.15'
+          php-version: '8.1'
 
       - name: Install dependencies
         run: |
@@ -25,7 +25,7 @@ jobs:
       - name: Prepare deployment
         run: |
           echo "Preparing deployment for PHP project"
-
+        
       - name: Deploy to Staging Server
         env:
           HOST: ${{ secrets.STAGING_SERVER_HOST }}
@@ -35,6 +35,10 @@ jobs:
         run: |
           sudo apt-get install -y sshpass
           sshpass -p "$PASSWORD" ssh -o StrictHostKeyChecking=no -p "$PORT" $USER@$HOST << 'EOF'
-            cd /sites/yadr.kraft.net.ua/
+            echo "Current directory:"
+            pwd
+            cd /home/admin/sites/yadr.kraft.net.ua
+            git status
             git pull origin master
-            composer install --no-interaction --pref
+            composer install --no-interaction --prefer-dist
+          EOF
