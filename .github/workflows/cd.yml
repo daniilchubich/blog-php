@@ -37,7 +37,7 @@ jobs:
           sshpass -p "$PASSWORD" ssh -o StrictHostKeyChecking=no -p "$PORT" $USER@$HOST << 'EOF'
             echo "Current directory:"
             pwd
-            cd /home/admin/sites/yadr.kraft.net.ua
+            cd /sites/yadr.kraft.net.ua
             git status
             git pull origin master
             composer install --no-interaction --prefer-dist
